@@ -1,7 +1,6 @@
 ---
-title: "Data Cleaning"
-author: "Marium Tapal"
-date: "5/2/2021"
+title: "Scratchpad"
+author: "Elisabeth Nesmith"
 output: html_document
 ---
 
@@ -11,5 +10,5 @@ library(tidyverse)
 
 ```{r load data}
 allegations <- read_csv("data/allegations.csv") 
-# some variable types should be changed to factor or int
+allegations_2019 <- allegations %>%  filter(year_received == 2019)
 ```
