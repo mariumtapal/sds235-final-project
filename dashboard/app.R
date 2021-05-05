@@ -9,9 +9,10 @@ library(tidyverse)
 library(readtext)
 library(reactable)
 library(plotly)
+library(here)
 
 # load in data
-allegations <- read_csv("data/allegations.csv") 
+allegations <- read_csv(here("data", "allegations.csv")) 
 allegations_2019 <- allegations %>%  filter(year_received == 2019)
 
 # load in source files
