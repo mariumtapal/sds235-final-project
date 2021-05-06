@@ -1,0 +1,15 @@
+---
+title: "Scratchpad"
+author: "Marium Tapal"
+output: html_document
+---
+
+```{r setup}
+library(tidyverse)
+library(here)
+```
+
+```{r load data}
+allegations <- read_csv(here("data", "allegations.csv")) 
+allegations_2019 <- allegations %>%  filter(year_received == 2019)
+```
