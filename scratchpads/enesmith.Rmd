@@ -9,27 +9,40 @@ output: html_document
 library(tidyverse)
 library(plotly)
 library(here)
+library(RColorBrewer)
 allegations <- read_csv(here("data", "allegations.csv")) 
 allegations_2019 <- allegations %>%  filter(year_received == 2019)
+allegations_2016 <- allegations %>%  filter(year_received == 2016)
+allegations_2018 <- allegations %>%  filter(year_received == 2018)
 ```
 
 ```{r}
-#barplot of races of officers
-mos_race_plot <- allegations_2019 %>% 
-  distinct(last_name, .keep_all = TRUE) %>% 
+allegations_2016 <- allegations_2016 %>% 
+  replace_na(list(complainant_ethnicity = 'NA', complainant_gender = 'NA', complainant_age_incident = 'NA'))
+
+allegations_2018 <- allegations_2018 %>% 
+  replace_na(list(complainant_ethnicity = 'NA', complainant_gender = 'NA', complainant_age_incident = 'NA'))
+```
+
+
+```{r}
+#barplot of races of officers 2016
+mos_race_2016 <- allegations_2016 %>%
+  mutate(name = paste(first_name, last_name)) %>% 
+  distinct(name, .keep_all = TRUE) %>% 
   group_by(mos_ethnicity) %>% 
   count() %>% 
-  mutate(percent = round(n/475*100, digits = 2)) %>% 
+  mutate(percent = paste(round(n/744*100, digits = 2),'%', sep = "")) %>% 
   plot_ly(x = ~mos_ethnicity,
           y = ~n,
           type = 'bar',
           text = ~percent,
           textposition = 'auto') %>% 
-  layout(title = "Racial Breakdown of Officers in 2019 Allegations",
+  layout(title = "Racial Percentages of the 744 Officers in 2016 Allegations",
          xaxis = list(title = 'Race of Officers'),
          yaxis = list(title = 'Number of Complaints'))
 
-mos_race_plot
+mos_race_2016
 
 #need to add color, figure out how to add percent sign to label on bars, figure out interactive element?
 #maybe have option to look at overall demographics and individual precincts?
@@ -37,58 +50,140 @@ mos_race_plot
 ```
 
 ```{r}
-#barplot of races of complainants
-comp_race_plot <- allegations_2019 %>%
+#barplot of races of officers 2018
+mos_race_2018 <- allegations_2018 %>%
+  mutate(name = paste(first_name, last_name)) %>% 
+  distinct(name, .keep_all = TRUE) %>% 
+  group_by(mos_ethnicity) %>% 
+  count() %>% 
+  mutate(percent = paste(round(n/726*100, digits = 2),'%', sep = "")) %>% 
+  plot_ly(x = ~mos_ethnicity,
+          y = ~n,
+          type = 'bar',
+          text = ~percent,
+          textposition = 'auto') %>% 
+  layout(title = "Racial Percentages of the 726 Officers in 2018 Allegations",
+         xaxis = list(title = 'Race of Officers'),
+         yaxis = list(title = 'Number of Complaints'))
+
+mos_race_2018
+
+#need to add color, figure out how to add percent sign to label on bars, figure out interactive element?
+#maybe have option to look at overall demographics and individual precincts?
+#or toggle between gender, age, and race
+```
+
+
+```{r}
+#barplot of races of complainants in 2016
+comp_race_2016 <- allegations_2016 %>%
   group_by(complainant_ethnicity) %>% 
   count() %>% 
-  mutate(percent = round(n/1642*100, digits = 2)) %>% 
+  mutate(percent = paste(round(n/2345*100, digits = 2),'%', sep = "")) %>% 
   plot_ly(x = ~complainant_ethnicity,
           y = ~n,
           type = 'bar',
           text = ~percent,
           textposition = 'auto') %>% 
-  layout(title = "Racial Breakdown of Complainants in 2019 Allegations",
+  layout(title = "Racial Percentages of 2345 Complainants in 2016 Allegations",
          xaxis = list(title = 'Race of Complainants'),
          yaxis = list(title = 'Number of Complaints'))
 
-comp_race_plot
+comp_race_2016
 ```
 
 ```{r}
-#gender of officers
-mos_gender_plot <- allegations_2019 %>% 
-  distinct(last_name, .keep_all = TRUE) %>% 
-  group_by(mos_gender) %>% 
+#barplot of races of complainants in 2018
+comp_race_2018 <- allegations_2018 %>%
+  group_by(complainant_ethnicity) %>% 
   count() %>% 
-  mutate(percent = round(n/475*100, digits = 2)) %>% 
+  mutate(percent = paste(round(n/2281*100, digits = 2),'%', sep = "")) %>% 
+  plot_ly(x = ~complainant_ethnicity,
+          y = ~n,
+          type = 'bar',
+          text = ~percent,
+          textposition = 'auto') %>% 
+  layout(title = "Racial Percentages of 2281 Complainants in 2016 Allegations",
+         xaxis = list(title = 'Race of Complainants'),
+         yaxis = list(title = 'Number of Complaints'))
+
+comp_race_2018
+```
+
+```{r}
+#gender of officers 2016
+mos_gender_2016 <- allegations_2016 %>%
+  mutate(name = paste(first_name, last_name)) %>% 
+  distinct(name, .keep_all = TRUE) %>% 
+  group_by(mos_gender) %>% 
+  count() %>%
+  mutate(percent = paste(round(n/744*100, digits = 2), '%', sep = "")) %>% 
   plot_ly(x = ~mos_gender,
           y = ~n,
           type = 'bar',
           text = ~percent,
           textposition = 'auto') %>% 
-  layout(title = "Gender Breakdown of Officers in 2019 Allegations",
+  layout(title = "Gender Percentages of 744 Officers in 2016 Allegations",
          xaxis = list(title = 'Gender of Officers'),
          yaxis = list(title = 'Number of Complaints'))
 
-mos_gender_plot
+mos_gender_2016
 ```
 
 ```{r}
-#gender of officers
-comp_gender_plot <- allegations_2019 %>% 
+#gender of officers 2018
+mos_gender_2018 <- allegations_2018 %>%
+  mutate(name = paste(first_name, last_name)) %>% 
+  distinct(name, .keep_all = TRUE) %>% 
+  group_by(mos_gender) %>% 
+  count() %>%
+  mutate(percent = paste(round(n/726*100, digits = 2), '%', sep = "")) %>% 
+  plot_ly(x = ~mos_gender,
+          y = ~n,
+          type = 'bar',
+          text = ~percent,
+          textposition = 'auto') %>% 
+  layout(title = "Gender Percentages of 726 Officers in 2018 Allegations",
+         xaxis = list(title = 'Gender of Officers'),
+         yaxis = list(title = 'Number of Complaints'))
+
+mos_gender_2018
+```
+
+```{r}
+#gender of complainants 2016
+comp_gender_2016 <- allegations_2016 %>% 
   group_by(complainant_gender) %>% 
   count() %>% 
-  mutate(percent = round(n/1642*100, digits = 2)) %>% 
+  mutate(percent = paste(round(n/2345*100, digits = 2), '%', sep = "")) %>% 
   plot_ly(x = ~complainant_gender,
           y = ~n,
           type = 'bar',
           text = ~percent,
           textposition = 'auto') %>% 
-  layout(title = "Gender Breakdown of Complainants in 2019 Allegations",
+  layout(title = "Gender Breakdown of Complainants in 2016 Allegations",
          xaxis = list(title = 'Gender of Complainants'),
          yaxis = list(title = 'Number of Complaints'))
 
-comp_gender_plot
+comp_gender_2016
+```
+
+```{r}
+#gender of complainants 2018
+comp_gender_2018 <- allegations_2018 %>% 
+  group_by(complainant_gender) %>% 
+  count() %>% 
+  mutate(percent = paste(round(n/2281*100, digits = 2), '%', sep = "")) %>% 
+  plot_ly(x = ~complainant_gender,
+          y = ~n,
+          type = 'bar',
+          text = ~percent,
+          textposition = 'auto') %>% 
+  layout(title = "Gender Breakdown of Complainants in 2016 Allegations",
+         xaxis = list(title = 'Gender of Complainants'),
+         yaxis = list(title = 'Number of Complaints'))
+
+comp_gender_2018
 ```
 
 ```{r}
@@ -120,6 +215,44 @@ raceplot2 <- allegations_2019 %>%
 raceplot2
 ```
 
+```{r}
+race_plot_2016 <- allegations_2016 %>%
+  group_by(mos_ethnicity, complainant_ethnicity) %>% 
+  count() %>% 
+  plot_ly(x = ~mos_ethnicity,
+          y = ~n,
+          type = 'bar',
+          text = ~complainant_ethnicity,
+          hovertemplate = 'Complainant Race: %{text}<br>Officer Race: %{x}<br>%{y}',
+          color = ~complainant_ethnicity,
+          colors = brewer.pal(9, "Paired")
+          ) %>% 
+  layout(title = "Distribution of Complainant Race by Officer Race in 2016",
+         xaxis = list(title = "Race of Officer"),
+         yaxis = list(title = "Number of Complaints"),
+         legend = list(title = "Race of Complainant"))
+
+race_plot_2016
+```
+
+```{r}
+race_plot_2018 <- allegations_2018 %>%
+  group_by(mos_ethnicity, complainant_ethnicity) %>% 
+  count() %>% 
+  plot_ly(x = ~mos_ethnicity,
+          y = ~n,
+          type = 'bar',
+          text = ~complainant_ethnicity,
+          hovertemplate = 'Complainant Race: %{text}<br>Officer Race: %{x}<br>%{y}',
+          color = ~complainant_ethnicity,
+          colors = brewer.pal(9, "Paired")
+          ) %>% 
+  layout(title = "Distribution of Complainant Race by Officer Race in 2018 Allegations",
+         xaxis = list(title = "Race of Officer"),
+         yaxis = list(title = "Number of Complaints"))
+
+race_plot_2018
+```
 
 ```{r}
 #race of officers in complaints filed by Black complainants
