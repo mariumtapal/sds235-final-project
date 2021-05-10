@@ -13,7 +13,7 @@ library(here)
 
 # load in data
 allegations <- read_csv(here("data", "allegations.csv")) 
-allegations_2019 <- allegations %>%  filter(year_received == 2019)
+allegations_2019 <- allegations %>% filter(year_received == 2019)
 
 # load in source files
 source("home.R")

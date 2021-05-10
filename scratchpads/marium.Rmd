@@ -7,9 +7,54 @@ output: html_document
 ```{r setup}
 library(tidyverse)
 library(here)
+library(leaflet)
+library(xml2)
+library(datapasta)
 ```
 
 ```{r load data}
-allegations <- read_csv(here("data", "allegations.csv")) 
-allegations_2019 <- allegations %>%  filter(year_received == 2019)
+allegations <- read_csv(here("data", "allegations.csv"))
+allegations_2016 <- allegations %>% filter(year_received == 2016)
+allegations_2018 <- allegations %>% filter(year_received == 2018)
+
+# google sheeet of data manually made using:
+# 1. https://www.gpsvisualizer.com/geocoder/
+# 2. Data Description from Allegations Data
+# 3. https://www1.nyc.gov/site/nypd/bureaus/patrol/precincts-landing.page
+coordinates <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQ8xw99f6gzPHNvINFt5THA4NrungmyCxGhKAUiRF57q7o1anelmhcgFu-1Dkm3wwqYv3kLi4hSF7Wl/pub?output=csv")
 ```
+
+```{r}
+# subset allegations for officers at command in precincts and detective squads
+allegations_pct_det <- allegations %>% 
+  filter(stringr::str_ends(command_now, "PCT") == TRUE | stringr::str_ends(command_now, "DET") == TRUE)
+
+# trim whitespaces
+allegations_pct_det$command_now <- str_trim(allegations_pct_det$command_now, side = "both")
+coordinates$command_now <- str_trim(coordinates$command_now, side = "both")
+
+# join coordinate data with allegation data
+map_data <- dplyr::inner_join(allegations_pct_det, coordinates, by = "command_now")
+```
+
+# Leaflet
+```{r}
+# really bad first leaflet
+leaflet <- map_data %>%
+  leaflet() %>%
+  addTiles() %>%
+  addTiles(group = "Open Street Maps") %>%
+  addCircleMarkers(
+    data = map_data, radius = 5,
+    color = "purple",
+    popup = map$command_now)
+  # ) %>%
+  # setView(lng = -71.47275, lat = 42.24943, zoom = 7)
+leaflet
+```
+
+notes:
+
+- currently only have geographical coordinates for precincts and detective squads (in precincts)
+- if there is time, I'll work on this more, else we can say it is a limitation, since first priority is a MVP
+- further steps include making sure the leaflet is searchable for years and other variables (perhaps a dropdown menu)
