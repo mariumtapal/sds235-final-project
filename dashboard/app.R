@@ -36,7 +36,7 @@ ui <- fluidPage(
         tabPanel("Home"),
         tabPanel("Allegations"),
         tabPanel("NYC Precincts"),
-        tabPanel("Race/Gender Demographies")
+        tabPanel("Race/Gender Demographics")
         ),
     
     # Footer

@@ -103,7 +103,7 @@ comp_race_2018 <- allegations_2018 %>%
           type = 'bar',
           text = ~percent,
           textposition = 'auto') %>% 
-  layout(title = "Racial Percentages of 2281 Complainants in 2016 Allegations",
+  layout(title = "Racial Percentages of 2281 Complainants in 2018 Allegations",
          xaxis = list(title = 'Race of Complainants'),
          yaxis = list(title = 'Number of Complaints'))
 
