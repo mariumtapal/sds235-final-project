@@ -15,18 +15,6 @@ allegations_2016 <- allegations %>%  filter(year_received == 2016)
 allegations_2018 <- allegations %>%  filter(year_received == 2018)
 ```
 
-```{r}
-#replace NAs
-allegations <- allegations %>% 
-  replace_na(list(complainant_ethnicity = 'Unknown', complainant_gender = 'NA', complainant_age_incident = 'NA'))
-
-allegations_2016 <- allegations_2016 %>% 
-  replace_na(list(complainant_ethnicity = 'Unknown', complainant_gender = 'NA', complainant_age_incident = 'NA')) 
-
-allegations_2018 <- allegations_2018 %>% 
-  replace_na(list(complainant_ethnicity = 'Unknown', complainant_gender = 'NA', complainant_age_incident = 'NA')) 
-```
-
 
 ```{r}
 #barplot of rank of officers 2016
