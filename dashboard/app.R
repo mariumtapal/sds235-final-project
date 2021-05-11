@@ -12,8 +12,11 @@ library(plotly)
 library(here)
 
 # load in data
-allegations <- read_csv(here("data", "allegations.csv")) 
-allegations_2019 <- allegations %>%  filter(year_received == 2019)
+allegations <- read_csv(here("data", "allegations.csv"))
+# 2019 till demographics file is updated
+allegations_2019 <- allegations %>% filter(year_received == 2019)
+allegations_2016 <- allegations %>% filter(year_received == 2016)
+allegations_2018 <- allegations %>% filter(year_received == 2018)
 
 # load in source files
 source("home.R")
@@ -35,7 +38,18 @@ ui <- fluidPage(
     tabsetPanel(
         tabPanel("Home"),
         tabPanel("Allegations"),
-        tabPanel("NYC Precincts"),
+        tabPanel("NYC Precincts",
+                 p("The following interactive map shows the number of allegations 
+             against police officers in each NYC precinct in the years 2016 and 2018. 
+             You can toggle each layer and click on the marker to this information."),
+                 leafletOutput("leaflet_year"),
+                 p(),
+                 p("This interactive map shows the number of allegations 
+             against police officers in each NYC precinct in the years 2016 and 2018 
+             (combined) by borough. You can toggle each layer and click on the marker 
+             to this information."),
+                 leafletOutput("leaflet_borough"),
+                 p()),
         tabPanel("Race/Gender Demographics", 
               sidebarLayout(
                      sidebarPanel("Select Year",
@@ -70,7 +84,16 @@ server <- function(input, output) {
     output$output_year <- renderText({
         paste("Year selected", input$select_year)
     })
+
+  output$leaflet_year <- renderLeaflet({
+    leaflet_year
+  })
+
+  output$leaflet_borough <- renderLeaflet({
+    leaflet_borough
+  })
+
 }
 
-# Run the application 
+# Run the application
 shinyApp(ui = ui, server = server)
