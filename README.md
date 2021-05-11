@@ -23,4 +23,4 @@ Our project includes the following files/folders:
 -   the `data` folder contains the main data for our project. It is
     called **Civilian Complaints Against New York City Police
     Officers**. It was retrieved on April 29, 2021 from
-    [ProPublica](www.propublica.org/datastore/dataset/civilian-complaints-against-new-york-city-police-officers).
+    [ProPublica](https://www.propublica.org/datastore/dataset/civilian-complaints-against-new-york-city-police-officers).
