@@ -36,8 +36,22 @@ ui <- fluidPage(
         tabPanel("Home"),
         tabPanel("Allegations"),
         tabPanel("NYC Precincts"),
-        tabPanel("Race/Gender Demographics")
-        ),
+        tabPanel("Race/Gender Demographics", 
+              sidebarLayout(
+                     sidebarPanel("Select Year",
+                                  selectInput("select_year", 
+                                              label = "Year",
+                                              choices = list("2016", 
+                                                             "2018")
+                                  )
+                     ),
+                     mainPanel("Demographics of Officers in Allegations",
+                               textOutput("output_year"),
+                               plotlyOutput("race_plot")
+                     )
+                 )
+        )),
+        
     
     # Footer
     div(
@@ -50,6 +64,12 @@ ui <- fluidPage(
 server <- function(input, output) {
 
     # put in output components here
+    output$race_plot <- renderPlotly({
+        subset(race_plot, year_received == input$select_year)
+    })
+    output$output_year <- renderText({
+        paste("Year selected", input$select_year)
+    })
 }
 
 # Run the application 
