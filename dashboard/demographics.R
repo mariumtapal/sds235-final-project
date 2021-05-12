@@ -71,3 +71,35 @@ race_plot <- allegations %>%
          yaxis = list(title = "Number of Complaints"),
          legend = list(title = "Race of Complainant"))
 
+#2016 race plot
+race_plot_2016 <- allegations_2016 %>%
+  group_by(mos_ethnicity, complainant_ethnicity) %>% 
+  count() %>%
+  plot_ly(x = ~mos_ethnicity,
+          y = ~n,
+          type = 'bar',
+          text = ~complainant_ethnicity,
+          hovertemplate = 'Complainant Race: %{text}<br>Officer Race: %{x}<br>%{y}',
+          color = ~complainant_ethnicity,
+          colors = brewer.pal(8, "Paired")
+  ) %>% 
+  layout(title = "Distribution of Complainant Race by Officer Race in 2016",
+         xaxis = list(title = "Race of Officer"),
+         yaxis = list(title = "Number of Complaints"),
+         legend = list(title = "Race of Complainant"))
+
+#2018 race plot
+race_plot_2018 <- allegations_2018 %>%
+  group_by(mos_ethnicity, complainant_ethnicity) %>% 
+  count() %>% 
+  plot_ly(x = ~mos_ethnicity,
+          y = ~n,
+          type = 'bar',
+          text = ~complainant_ethnicity,
+          hovertemplate = 'Complainant Race: %{text}<br>Officer Race: %{x}<br>%{y}',
+          color = ~complainant_ethnicity,
+          colors = brewer.pal(8, "Paired")
+  ) %>% 
+  layout(title = "Distribution of Complainant Race by Officer Race in 2018",
+         xaxis = list(title = "Race of Officer"),
+         yaxis = list(title = "Number of Complaints"))

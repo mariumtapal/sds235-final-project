@@ -59,7 +59,7 @@ ui <- fluidPage(
                                              2018)
                          )
                           ),
-              mainPanel("Demographics of Officers in Allegations",
+              mainPanel("",
                   textOutput("output_year"),
                   plotlyOutput("race_plot")
                        )
@@ -78,11 +78,13 @@ ui <- fluidPage(
 server <- function(input, output) {
 
     # put in output components here
+    
   output$race_plot <- renderPlotly({
-      subset(race_plot, year_received == input$select_year)
-  })
-  output$output_year <- renderText({
-      paste("Year selected", input$select_year)
+    res <- race_plot
+    if (input$select_year == 2016){res <- race_plot_2016}
+    else if (input$select_year == 2018){res <- race_plot_2018}
+    res
+  
   })
 
   output$leaflet_year <- renderLeaflet({
@@ -97,3 +99,4 @@ server <- function(input, output) {
 
 # Run the application
 shinyApp(ui = ui, server = server)
+
