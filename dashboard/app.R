@@ -52,18 +52,18 @@ ui <- fluidPage(
                  p()),
         tabPanel("Race/Gender Demographics", 
               sidebarLayout(
-                     sidebarPanel("Select Year",
-                                  selectInput("select_year", 
-                                              label = "Year",
-                                              choices = list("2016", 
-                                                             "2018")
-                                  )
-                     ),
-                     mainPanel("Demographics of Officers in Allegations",
-                               textOutput("output_year"),
-                               plotlyOutput("race_plot")
-                     )
-                 )
+              sidebarPanel("Select Year",
+              selectInput("select_year", 
+                              label = "Year",
+                              choices = list(2016, 
+                                             2018)
+                         )
+                          ),
+              mainPanel("Demographics of Officers in Allegations",
+                  textOutput("output_year"),
+                  plotlyOutput("race_plot")
+                       )
+                           )
         )),
         
     
@@ -78,12 +78,12 @@ ui <- fluidPage(
 server <- function(input, output) {
 
     # put in output components here
-    output$race_plot <- renderPlotly({
-        subset(race_plot, year_received == input$select_year)
-    })
-    output$output_year <- renderText({
-        paste("Year selected", input$select_year)
-    })
+  output$race_plot <- renderPlotly({
+      subset(race_plot, year_received == input$select_year)
+  })
+  output$output_year <- renderText({
+      paste("Year selected", input$select_year)
+  })
 
   output$leaflet_year <- renderLeaflet({
     leaflet_year

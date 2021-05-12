@@ -244,7 +244,7 @@ raceplot2
 ```{r}
 race_plot_2016 <- allegations_2016 %>%
   group_by(mos_ethnicity, complainant_ethnicity) %>% 
-  count() %>% 
+  count() %>%
   plot_ly(x = ~mos_ethnicity,
           y = ~n,
           type = 'bar',
@@ -294,4 +294,24 @@ allegations_2019 %>%
           type = 'bar')
 ```
 
+```{r}
+race_plot <- allegations %>%
+  filter(year_received == 2016 | year_received == 2018) %>% 
+  group_by(mos_ethnicity, complainant_ethnicity, year_received) %>% 
+  count() %>% 
+  plot_ly(x = ~mos_ethnicity,
+          y = ~n,
+          type = 'bar',
+          text = ~complainant_ethnicity,
+          hovertemplate = 'Complainant Race: %{text}<br>Officer Race: %{x}<br>%{y}',
+          color = ~complainant_ethnicity,
+          colors = brewer.pal(8, "Paired")
+  ) %>% 
+  layout(title = "Distribution of Complainant Race by Officer Race",
+         xaxis = list(title = "Race of Officer"),
+         yaxis = list(title = "Number of Complaints"),
+         legend = list(title = "Race of Complainant"))
+
+race_plot
+```
 

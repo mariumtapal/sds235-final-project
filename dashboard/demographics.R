@@ -55,7 +55,8 @@ mos_race <- allegations_officers %>%
 
 #barplot of races of officers and complainants
 race_plot <- allegations %>%
-  group_by(mos_ethnicity, complainant_ethnicity) %>% 
+  filter(year_received == 2016 | year_received == 2018) %>% 
+  group_by(mos_ethnicity, complainant_ethnicity, year_received) %>% 
   count() %>% 
   plot_ly(x = ~mos_ethnicity,
           y = ~n,
@@ -65,7 +66,7 @@ race_plot <- allegations %>%
           color = ~complainant_ethnicity,
           colors = brewer.pal(8, "Paired")
   ) %>% 
-  layout(title = "Distribution of Complainant Race by Officer Race in 2016",
+  layout(title = "Distribution of Complainant Race by Officer Race",
          xaxis = list(title = "Race of Officer"),
          yaxis = list(title = "Number of Complaints"),
          legend = list(title = "Race of Complainant"))
