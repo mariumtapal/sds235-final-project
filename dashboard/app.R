@@ -50,23 +50,37 @@ ui <- fluidPage(
              to this information."),
                  leafletOutput("leaflet_borough"),
                  p()),
-        tabPanel("Race/Gender Demographics", 
-              sidebarLayout(
-              sidebarPanel("Select Year",
-              selectInput("select_year", 
-                              label = "Year",
-                              choices = list(2016, 
-                                             2018)
-                         )
+        tabPanel("Race/Gender Demographics",
+                 fluidRow(
+                   column(3, "Officer Demographics",
+                          selectInput("select_year1",
+                                      label = "Year",
+                                      choices = list(2016,
+                                                     2018)
                           ),
-              mainPanel("",
-                  textOutput("output_year"),
-                  plotlyOutput("race_plot")
-                       )
-                           )
-        )),
+                          selectInput("select_variable",
+                                      label = "Demographic",
+                                      choices = list("Race",
+                                                     "Gender"))),
+                   column(9,
+                          textOutput("output_year1"),
+                          textOutput("output_variable"),
+                          plotlyOutput("mos_race"))
+                 ),
+                 p(),
+                 fluidRow(
+                   column(3, "Race of Officers and Complainants",
+                          selectInput("select_year",
+                                      label = "Year",
+                                      choices = list(2016,
+                                                     2018)
+                          )),
+                   column(9,
+                          textOutput("output_year"),
+                          plotlyOutput("race_plot"))
+                 )
+                 )),
         
-    
     # Footer
     div(
         class = "footer",
@@ -78,13 +92,22 @@ ui <- fluidPage(
 server <- function(input, output) {
 
     # put in output components here
+  output$mos_race <- renderPlotly({
+    off <- mos_race
+    if (input$select_year1 == 2016 & input$select_variable == 'Race'){off <- mos_race_2016}
+    else if (input$select_year1 == 2016 & input$select_variable == 'Gender'){off <- mos_gender_2016}
+    else if (input$select_year1 == 2018 & input$select_variable == 'Race'){off <- mos_race_2018}
+    else if (input$select_year1 == 2018 & input$select_variable == 'Gender'){off <- mos_gender_2018}
+    off
     
+  })
+   
   output$race_plot <- renderPlotly({
     res <- race_plot
     if (input$select_year == 2016){res <- race_plot_2016}
     else if (input$select_year == 2018){res <- race_plot_2018}
     res
-  
+
   })
 
   output$leaflet_year <- renderLeaflet({

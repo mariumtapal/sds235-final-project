@@ -20,7 +20,7 @@ allegations <- allegations %>%
   replace_na(list(complainant_ethnicity = 'Unknown', complainant_gender = 'NA', complainant_age_incident = 'NA'))
 
 #barplot of races of officers 2016
-mos_race_2016 <- allegations %>%
+mos_race_2016 <- allegations_2016 %>%
   mutate(name = paste(first_name, last_name)) %>% 
   distinct(name, .keep_all = TRUE) %>% 
   group_by(mos_ethnicity) %>% 
@@ -32,6 +32,22 @@ mos_race_2016 <- allegations %>%
           text = ~percent,
           textposition = 'auto') %>% 
   layout(title = "Racial Percentages of the 744 Officers in 2016 Allegations",
+         xaxis = list(title = 'Race of Officers'),
+         yaxis = list(title = 'Number of Complaints'))
+
+#barplot of races of officers 2018
+mos_race_2018 <- allegations_2018 %>%
+  mutate(name = paste(first_name, last_name)) %>% 
+  distinct(name, .keep_all = TRUE) %>% 
+  group_by(mos_ethnicity) %>% 
+  count() %>% 
+  mutate(percent = paste(round(n/726*100, digits = 2),'%', sep = "")) %>% 
+  plot_ly(x = ~mos_ethnicity,
+          y = ~n,
+          type = 'bar',
+          text = ~percent,
+          textposition = 'auto') %>% 
+  layout(title = "Racial Percentages of the 726 Officers in 2018 Allegations",
          xaxis = list(title = 'Race of Officers'),
          yaxis = list(title = 'Number of Complaints'))
 
@@ -51,6 +67,38 @@ mos_race <- allegations_officers %>%
           textposition = 'auto') %>% 
   layout(title = "Racial Percentages of Officers in Allegations",
          xaxis = list(title = 'Race of Officers'),
+         yaxis = list(title = 'Number of Complaints'))
+
+#gender of officers 2016
+mos_gender_2016 <- allegations_2016 %>%
+  mutate(name = paste(first_name, last_name)) %>% 
+  distinct(name, .keep_all = TRUE) %>% 
+  group_by(mos_gender) %>% 
+  count() %>%
+  mutate(percent = paste(round(n/744*100, digits = 2), '%', sep = "")) %>% 
+  plot_ly(x = ~mos_gender,
+          y = ~n,
+          type = 'bar',
+          text = ~percent,
+          textposition = 'auto') %>% 
+  layout(title = "Gender Percentages of 744 Officers in 2016 Allegations",
+         xaxis = list(title = 'Gender of Officers'),
+         yaxis = list(title = 'Number of Complaints'))
+
+#gender of officers 2018
+mos_gender_2018 <- allegations_2018 %>%
+  mutate(name = paste(first_name, last_name)) %>% 
+  distinct(name, .keep_all = TRUE) %>% 
+  group_by(mos_gender) %>% 
+  count() %>%
+  mutate(percent = paste(round(n/726*100, digits = 2), '%', sep = "")) %>% 
+  plot_ly(x = ~mos_gender,
+          y = ~n,
+          type = 'bar',
+          text = ~percent,
+          textposition = 'auto') %>% 
+  layout(title = "Gender Percentages of 726 Officers in 2018 Allegations",
+         xaxis = list(title = 'Gender of Officers'),
          yaxis = list(title = 'Number of Complaints'))
 
 #barplot of races of officers and complainants
