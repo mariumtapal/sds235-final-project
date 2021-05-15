@@ -41,6 +41,7 @@ ui <- fluidPage(
     tabPanel("Allegations"),
     tabPanel(
       "NYC Precincts",
+      p(),
       p("This interactive map shows the number of allegations 
              against police officers in each NYC precinct in the years 2016 and 2018 
              (combined) by borough. You can toggle for each borough and click on the marker 
@@ -49,12 +50,16 @@ ui <- fluidPage(
         column(
           3,
           selectInput("select_year_leaflet",
-            label = "Precinct Allegations by Borough",
+            label = "Precinct Allegations by Year",
             choices = list(
               "2016 and 2018 Combined", 2016,
               2018
             )
           ),
+          h3("Limitations"),
+          p("The allegations that were counted in the making of this map were only of the officers at
+        command in a precinct or a detective squad as there was limited information about the
+        physical location of other command stations."),
         ),
         column(
           9,

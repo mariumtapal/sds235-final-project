@@ -23,7 +23,7 @@ map_data <- map_data %>% mutate(command_now = as.factor(command_now))
 radii <- map_data %>% count(command_now)
 map_data <- map_data %>% left_join(radii, by = "command_now")
 # colour palette for boroughs
-boroughCol <- colorFactor(palette = "Paired", map_data$borough)
+boroughCol <- colorFactor(palette = "viridis", map_data$borough)
 # pop up label
 popup <- paste0(map_data$precinct.y, ", ", map_data$address, ", ", map_data$borough, "<br>", "Number of Allegations: ", map_data$n)
 
@@ -51,7 +51,7 @@ map_data_2016 <- map_data %>% filter(year_received == 2016)
 radii_2016 <- map_data_2016 %>% count(command_now)
 map_data_2016 <- map_data_2016 %>% left_join(radii_2016, by = "command_now")
 # colour palette for boroughs
-boroughCol <- colorFactor(palette = "Paired", map_data_2016$borough)
+boroughCol <- colorFactor(palette = "viridis", map_data_2016$borough)
 # pop up label
 popup_2016 <- paste0(map_data_2016$precinct.y, ", ", map_data_2016$address, ", ", map_data_2016$borough, "<br>", "Number of Allegations: ", map_data_2016$n.y)
 
@@ -79,7 +79,7 @@ map_data_2018 <- map_data %>% filter(year_received == 2018)
 radii_2018 <- map_data_2018 %>% count(command_now)
 map_data_2018 <- map_data_2018 %>% left_join(radii_2018, by = "command_now")
 # colour palette for boroughs
-boroughCol <- colorFactor(palette = "Paired", map_data_2018$borough)
+boroughCol <- colorFactor(palette = "viridis", map_data_2018$borough)
 # pop up label
 popup_2018 <- paste0(map_data_2018$precinct.y, ", ", map_data_2018$address, ", ", map_data_2018$borough, "<br>", "Number of Allegations: ", map_data_2018$n.y)
 
