@@ -35,7 +35,9 @@ ui <- fluidPage(
 
   # Create tabs
   tabsetPanel(
-    tabPanel("Home"),
+    tabPanel(
+      "Home",
+      p("")),
     tabPanel("Allegations"),
     tabPanel(
       "NYC Precincts",
@@ -64,6 +66,10 @@ ui <- fluidPage(
     ),
     tabPanel(
       "Race/Gender Demographics",
+      p("The following graph illustrates the racial and gender breakdowns of all officers who appeared 
+        in a formal complaint in 2016 or 2018. Using the dropdown menus on the side, you can select which
+        demographic to plot and toggle between 2016 and 2018 to see how the numbers changed. Additionally,
+        hovering over each bar reveals more information."),
       fluidRow(
         column(
           3, "Officer Demographics",
@@ -90,9 +96,33 @@ ui <- fluidPage(
         )
       ),
       p(),
+      p("Similar to the graph above, this interactive barplot shows the race and gender distributions of
+        all complainants in the 2016 or 2018 allegations. The drop downs on the side allow you to select
+        the demographic and year you would like to see."),
       fluidRow(
-        column(
-          3, "Race of Officers and Complainants",
+        column(3, "Complainant Demographics",
+               selectInput("select_year2",
+                           label = "Year",
+                           choices = list(2016,
+                                          2018
+                                          )),
+               selectInput("select_demographic",
+                           label = "Demographic",
+                           choices = list("Race",
+                                          "Gender"))),
+        column(9,
+               textOutput("output_year_2"),
+               textOutput("output_demographic"),
+               plotlyOutput("complainant_race"))
+       
+      ),
+      p(),
+      p("Finally, the graph below breaks down the races of officers and the races of complainants for each
+        of the two years. For each race of officer, the graph shows the number of associated complainants 
+        in each racial category. For example, in 2016, 282 Hispanic complainants leveraged complaints against
+        a white officer. You can switch between years using the menu on the side."),
+      fluidRow(
+        column(3, "Race of Officers and Complainants",
           selectInput("select_year",
             label = "Year",
             choices = list(
@@ -106,9 +136,10 @@ ui <- fluidPage(
           textOutput("output_year"),
           plotlyOutput("race_plot")
         )
+      ),
+      p(),
       )
-    )
-  ),
+    ),
 
   # Footer
   div(
@@ -136,6 +167,23 @@ server <- function(input, output) {
       off <- mos_gender_2018
     }
     off
+  })
+  
+  output$complainant_race <- renderPlotly({
+    comp <- complainant_race
+    if (input$select_year2 == 2016 & input$select_demographic == "Race") {
+      comp <- comp_race_2016
+    }
+    else if (input$select_year2 == 2016 & input$select_demographic == "Gender") {
+      comp <- comp_gender_2016
+    }
+    else if (input$select_year2 == 2018 & input$select_demographic == "Race") {
+      comp <- comp_race_2018
+    }
+    else if (input$select_year2 == 2018 & input$select_demographic == "Gender") {
+      comp <- comp_gender_2018
+    }
+    comp
   })
 
   output$race_plot <- renderPlotly({
