@@ -10,10 +10,11 @@ library(readtext)
 library(reactable)
 library(plotly)
 library(here)
+library(RColorBrewer)
+library(kableExtra)
 
 # load in data
 allegations <- read_csv(here("data", "allegations.csv"))
-# 2019 till demographics file is updated
 allegations_2016 <- allegations %>% filter(year_received == 2016)
 allegations_2018 <- allegations %>% filter(year_received == 2018)
 
@@ -105,7 +106,7 @@ ui <- fluidPage(
     tabPanel("Allegations"),
     tabPanel(
       "NYC Precincts",
-      p(),
+      h3("Map: Allegations by Year"),
       p("This interactive map shows the number of allegations 
              against police officers in each NYC precinct in the years 2016 and 2018, before
              and after the body cameras were introduced. The default view shows the combined
@@ -114,13 +115,13 @@ ui <- fluidPage(
              using the multi-select option on the upper-right corner of the map."),
       p(),
       p("Each circle marker represents a precinct. You can click on these marker to 
-        view this the precinct name, address, and the number of allegations.
+        view the precinct name, address, and the number of allegations.
         The size of the marks reflects the number of allegations."),
       fluidRow(
         column(
           3,
           selectInput("select_year_leaflet",
-            label = "Precinct Allegations by Year",
+            label = "Select Year",
             choices = list(
               "2016 and 2018 Combined", 2016,
               2018
@@ -137,7 +138,28 @@ ui <- fluidPage(
           leafletOutput("leaflets")
         )
       ),
-      p()
+      p(),
+      h3("Stats: Allegations by Precinct"),
+      p("The table below shows the summary of allegations for each police 
+      precinct in New York City by year. From the drop-down menu, select a
+        precinct (this field is searchable) and select the year to view the table.
+        Please refer to the home tab for details of each category."),
+      fluidRow(
+        column(
+          3, selectizeInput("precinct",
+            choices = sort(unique(map_data$precinct.y)),
+            label = "Select Precinct", selected = "1st Precinct"
+          ),
+          radioButtons("year_precinct",
+            label = "Select Year",
+            choices = list(
+              2016,
+              2018
+            )
+          )
+        ),
+        column(9, htmlOutput("table_precinct"))
+      )
     ),
     tabPanel(
       "Race/Gender Demographics",
@@ -311,6 +333,22 @@ server <- function(input, output) {
     }
     off
   })
+
+  # summary table for precincts
+  output$table_precinct <- reactive({
+    req(input$precinct)
+    req(input$year_precinct)
+    map_data %>%
+      filter(precinct.y == input$precinct & year_received == input$year_precinct) %>%
+      group_by(fado_type, allegation, board_disposition) %>%
+      count() %>%
+      arrange(desc(n)) %>%
+      knitr::kable("html", col.names = c("Top-level Category of Complaint",
+                                         "Specific Category of Complaint",
+                                         "Finding by the CCRB", "Count")) %>%
+      kable_styling("striped", full_width = T)
+  })
+
 }
 
 # Run the application

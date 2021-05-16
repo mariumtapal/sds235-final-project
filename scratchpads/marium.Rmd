@@ -8,6 +8,7 @@ output: html_document
 library(tidyverse)
 library(here)
 library(leaflet)
+library(plotly)
 ```
 
 ```{r load data}
@@ -106,12 +107,30 @@ nyc_pop <- tibble::tribble(
       "Manhattan",    3123068L,
           "Bronx",    2717758L
   )
-
 ```
 
 
 notes:
-
 - currently only have geographical coordinates for precincts and detective squads (in precincts)
 - if there is time, I'll work on this more, else we can say it is a limitation, since first priority is a MVP
 - further steps include making sure the leaflet is searchable for years and other variables (perhaps a dropdown menu)
+
+
+## Summary Stats
+
+by precinct
+look at counts of race of officers and complainants (?)
+board disposition
+outcome description
+fado_type
+
+
+```{r}
+map_data_2016 %>% count(fado_type, board_disposition) %>% arrange(desc(n))
+```
+
+rename vars
+kable?
+quick explanation what it means (or redirect to home tab)
+explain section in paragraph
+
