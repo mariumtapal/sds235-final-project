@@ -26,7 +26,14 @@ source("demographics.R")
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
+  # CSS for making the footer stick
+  tags$body(
+    tags$style(HTML("body {
+                margin: 0;
+                height: 100%;
+                min-height: 100%;}"))),
 
+  
   # Application theme
   theme = shinytheme("flatly"),
 
@@ -215,7 +222,7 @@ ui <- fluidPage(
       )
     ),
 
-  # Foot
+  # Footer
   div(
     class = "footer",
     includeHTML("footer.html")
