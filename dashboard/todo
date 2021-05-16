@@ -1,0 +1,12 @@
+TO-DOs:
+
+smaller tasks:
+- title
+- theme and/or colours (i don't love the teal - maybe some nyc-ish colours?)
+- adding information to allegations tab
+- adding summary stats to precincts tab
+
+bigger tasks:
+- deploying app to shinyapps.io or other host (update readme once this is done)
+- write up
+- demo video

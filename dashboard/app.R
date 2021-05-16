@@ -31,9 +31,10 @@ ui <- fluidPage(
     tags$style(HTML("body {
                 margin: 0;
                 height: 100%;
-                min-height: 100%;}"))),
+                min-height: 100%;}"))
+  ),
 
-  
+
   # Application theme
   theme = shinytheme("flatly"),
 
@@ -51,7 +52,7 @@ ui <- fluidPage(
         is meant to dissuade and prevent police brutality, which is often racially motivated. In June of 2017, NYC 
         Mayor Bill de Blasio announced a policy that requires the NYPD to release all body cam footage of 
         incidents involving force which ended in injury or death."),
-      tags$a(href="https://apnews.com/article/2fea6f0179f8e95e332c2c4deeaa861a", "Source: AP News"),
+      tags$a(href = "https://apnews.com/article/2fea6f0179f8e95e332c2c4deeaa861a", "Source: AP News"),
       p("With all of this in mind, 
         we wanted to create a tool that allows city administrators, such as the District Attorney, to visualize
         the impact of body cameras on civilian complaints against the NYPD. As the body camera changes were 
@@ -63,17 +64,19 @@ ui <- fluidPage(
         information on the officer and complainant involved, as well as information about the complaint itself.
         Our project centers on a selection of these variables for the years 2016 and 2018. Additionally, we used
         a GPS visualizer and data from the New York City government website to manually map precinct locations."),
-      tags$a(href="https://www.propublica.org/datastore/dataset/civilian-complaints-against-new-york-city-police-officers", 
-             "Propublica Data, "),
-      tags$a(href="https://www.gpsvisualizer.com/geocoder/", "GPS Visualizer, "),
-      tags$a(href="https://www1.nyc.gov/site/nypd/bureaus/patrol/precincts-landing.page", "Precincts Data"),
+      tags$a(
+        href = "https://www.propublica.org/datastore/dataset/civilian-complaints-against-new-york-city-police-officers",
+        "Propublica Data, "
+      ),
+      tags$a(href = "https://www.gpsvisualizer.com/geocoder/", "GPS Visualizer, "),
+      tags$a(href = "https://www1.nyc.gov/site/nypd/bureaus/patrol/precincts-landing.page", "Precincts Data"),
       h3("Relevant Variables"),
       p("This project focuses on the types of allegations and whether they were substantiated, the distribution
         of allegations by precinct, and the race and gender demographics of both the officers and complainants.
         We use the following variables in our visualizations:"),
       tags$ul(
-        tags$li("year_received: the year the complaint was filed"), 
-        tags$li("rank_incident: the rank of the officer at the time of the incident"), 
+        tags$li("year_received: the year the complaint was filed"),
+        tags$li("rank_incident: the rank of the officer at the time of the incident"),
         tags$li("mos_ethnicity: the race of the officer"),
         tags$li("mos_gender: the gender of the officer"),
         tags$li("complainant_ethnicity: the race of the complainant"),
@@ -81,11 +84,14 @@ ui <- fluidPage(
         tags$li("fado_type: the category the allegation falls under"),
         tags$li("precinct: the precinct of the officer in the allegation"),
         tags$li("board_disposition: whether the allegation was substantiated and found to be in violation of the
-        NYPD's rules")),
+        NYPD's rules")
+      ),
       p("For further information on the variables in the dataset, see the corresponding data 
         dictionary."),
-      tags$a(href="https://github.com/mariumtapal/sds235-final-project/blob/main/data/data_descriptions.xlsx", 
-             "Data Dictionary"),
+      tags$a(
+        href = "https://github.com/mariumtapal/sds235-final-project/blob/main/data/data_descriptions.xlsx",
+        "Data Dictionary"
+      ),
       h3("Available Tabs"),
       p("Navigating the tabs above takes you to the different visualizations we have constructed. The
         Allegations tab illustrates the distribution of ranks among the officers in the allegations and the
@@ -101,9 +107,15 @@ ui <- fluidPage(
       "NYC Precincts",
       p(),
       p("This interactive map shows the number of allegations 
-             against police officers in each NYC precinct in the years 2016 and 2018 
-             (combined) by borough. You can toggle for each borough and click on the marker 
-             to view this information. The size of the marks indicate the number of allegations."),
+             against police officers in each NYC precinct in the years 2016 and 2018, before
+             and after the body cameras were introduced. The default view shows the combined
+             allegations for 2016 and 2016. You can view a specfic year using the drop-down
+             menu. Furthermore, you can select which boroughs you would like to look at by
+             using the multi-select option on the upper-right corner of the map."),
+      p(),
+      p("Each circle marker represents a precinct. You can click on these marker to 
+        view this the precinct name, address, and the number of allegations.
+        The size of the marks reflects the number of allegations."),
       fluidRow(
         column(
           3,
@@ -114,9 +126,9 @@ ui <- fluidPage(
               2018
             )
           ),
-          h3("Limitations"),
+          h4("Limitations"),
           p("The allegations that were counted in the making of this map were only of the officers at
-        command in a precinct or a detective squad as there was limited information about the
+        command in a precinct or a detective squad due to limited information about the
         physical location of other command stations."),
         ),
         column(
@@ -168,28 +180,38 @@ ui <- fluidPage(
          While we were unable to obtain data on the NYPD in 2016 and 2018, as of 2021 the NYPD is 81% male and 19% female. 
          Additionally, 46% of officers are white, 30% are Hispanic, 15% are Black, and 9% are Asian. These numbers are not
          necessarily representative of the force in 2016 and 2018, but they can provide some context."),
-      tags$a(href="https://www1.nyc.gov/site/ccrb/policy/data-transparency-initiative-mos.page", 
-             "Current NYPD Demographics"),
+      tags$a(
+        href = "https://www1.nyc.gov/site/ccrb/policy/data-transparency-initiative-mos.page",
+        "Current NYPD Demographics"
+      ),
       h3("Complainant Demographics"),
       p("Similar to the graph above, this interactive barplot shows the race and gender distributions of
         all complainants in the 2016 or 2018 allegations. The drop downs on the side allow you to select
         the demographic and year you would like to see."),
       fluidRow(
-        column(3, "Complainant Demographics",
-               selectInput("select_year2",
-                           label = "Year",
-                           choices = list(2016,
-                                          2018
-                                          )),
-               selectInput("select_demographic",
-                           label = "Demographic",
-                           choices = list("Race",
-                                          "Gender"))),
-        column(9,
-               textOutput("output_year_2"),
-               textOutput("output_demographic"),
-               plotlyOutput("complainant_race"))
-       
+        column(
+          3, "Complainant Demographics",
+          selectInput("select_year2",
+            label = "Year",
+            choices = list(
+              2016,
+              2018
+            )
+          ),
+          selectInput("select_demographic",
+            label = "Demographic",
+            choices = list(
+              "Race",
+              "Gender"
+            )
+          )
+        ),
+        column(
+          9,
+          textOutput("output_year_2"),
+          textOutput("output_demographic"),
+          plotlyOutput("complainant_race")
+        )
       ),
       p(),
       h3("Race of Complainants by Officer Race"),
@@ -198,7 +220,8 @@ ui <- fluidPage(
         in each racial category. For example, in 2016, 282 Hispanic complainants leveraged complaints against
         a white officer. You can switch between years using the menu on the side."),
       fluidRow(
-        column(3, "Race of Officers and Complainants",
+        column(
+          3, "Race of Officers and Complainants",
           selectInput("select_year",
             label = "Year",
             choices = list(
@@ -219,8 +242,8 @@ ui <- fluidPage(
         when looking at these numbers and demographics, we must also ask who may be underrepresented. It is possible
         there are particular groups who feel less safe reporting a complaint, or who don't believe it will 
         amount to anything. Such bias must be taken account when analyzing this potentially skewed data.")
-      )
-    ),
+    )
+  ),
 
   # Footer
   div(
@@ -249,7 +272,7 @@ server <- function(input, output) {
     }
     off
   })
-  
+
   output$complainant_race <- renderPlotly({
     comp <- complainant_race
     if (input$select_year2 == 2016 & input$select_demographic == "Race") {
