@@ -37,7 +37,53 @@ ui <- fluidPage(
   tabsetPanel(
     tabPanel(
       "Home",
-      p("")),
+      h3("General Overview"),
+      p("In April 2017, the New York City Police Department initiated the use of 24,000 body cameras for its 
+        patrol force and street units [cite article]. The intent of body cams is to foster greater peace and trust 
+        between civilians and police by recording their interactions. Specifically, the use of the cameras 
+        is meant to dissuade and prevent police brutality, which is often racially motivated. In June of 2017, NYC 
+        Mayor Bill de Blasio announced a policy that requires the NYPD to release all body cam footage of 
+        incidents involving force which ended in injury or death [cite article]. With all of this in mind, 
+        we wanted to create a tool that allows city administrators, such as the District Attorney, to visualize
+        the impact of body cameras on civilian complaints against the NYPD. As the body camera changes were 
+        enacted in 2017, we chose to look at the allegations from 2016 and 2018."),
+      h3("Data Source"),
+      p("We draw on data from Propublica's dataset Civilian Complaints Against New York City Police Officers
+        [create hyperlink]. This data comes from New York City's Civilian Complaint Review Board and 
+        encompasses complaints from September 1985 to January 2020. Each observation in the data contains
+        information on the officer and complainant involved, as well as information about the complaint itself.
+        Our project centers on a selection of these variables for the years 2016 and 2018."),
+      h3("Relevant Variables"),
+      p("This project focuses on the types of allegations and whether they were substantiated, the distribution
+        of allegations by precinct, and the race and gender demographics of both the officers and complainants.
+        We use the following variables in our visualizations:"),
+      tags$ul(
+        tags$li("year_received: the year the complaint was filed"), 
+        tags$li("rank_incident: the rank of the officer at the time of the incident"), 
+        tags$li("mos_ethnicity: the race of the officer"),
+        tags$li("mos_gender: the gender of the officer"),
+        tags$li("complainant_ethnicity: the race of the complainant"),
+        tags$li("complainant_gender: the gender of the complainant"),
+        tags$li("fado_type: the category the allegation falls under"),
+        tags$li("precinct: the precinct of the officer in the allegation"),
+        tags$li("board_disposition: whether the allegation was substantiated and found to be in violation of the
+        NYPD's rules")),
+      p("For further information on the variables in the dataset, see the corresponding data 
+        dictionary [link here]"),
+      h3("Available Tabs"),
+      p("Navigating the tabs above takes you to the different visualizations we have constructed. The
+        Allegations tab illustrates the distribution of ranks among the officers in the allegations and the
+        types of allegations, as well as whether they were substantiated. The NYC Precincts tab contains a 
+        map of all precincts with the numbers of allegations by location. The Race/Gender Demographics tab 
+        has a series of plots illustrating the demographics of officers and complainants, both individually
+        and combined. Finally, every tab provides the ability to switch between the data for 2016 and 2018
+        allegations."),
+      p("
+        
+        
+        
+        "),
+    ),
     tabPanel("Allegations"),
     tabPanel(
       "NYC Precincts",
