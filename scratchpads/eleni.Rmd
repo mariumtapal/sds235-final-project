@@ -14,6 +14,8 @@ allegations_2016 <- allegations %>%  filter(year_received == 2016)
 allegations_2018 <- allegations %>%  filter(year_received == 2018)
 ```
 
+##Must add changes
+
 
 ```{r}
 #barplot of rank of officers 2016
