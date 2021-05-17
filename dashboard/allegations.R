@@ -1,3 +1,6 @@
+##in progress 
+##add data wrangle feature
+
 allegations <- read_csv(here("data", "allegations.csv")) 
 allegations_2019 <- allegations %>%  filter(year_received == 2019)
 allegations_2016 <- allegations %>%  filter(year_received == 2016)
