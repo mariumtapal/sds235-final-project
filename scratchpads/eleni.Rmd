@@ -8,13 +8,12 @@ output: html_document
 library(tidyverse)
 library(plotly)
 library(here)
+library(RColorBrewer)
 allegations <- read_csv(here("data", "allegations.csv")) 
 allegations_2019 <- allegations %>%  filter(year_received == 2019)
 allegations_2016 <- allegations %>%  filter(year_received == 2016)
 allegations_2018 <- allegations %>%  filter(year_received == 2018)
 ```
-
-##Must add changes
 
 
 ```{r}
