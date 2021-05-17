@@ -12,6 +12,7 @@ library(plotly)
 library(here)
 library(RColorBrewer)
 library(kableExtra)
+library(htmltools)
 
 # load in data
 allegations <- read_csv(here("data", "allegations.csv"))
@@ -110,27 +111,23 @@ ui <- fluidPage(
       p("This interactive map shows the number of allegations 
              against police officers in each NYC precinct in the years 2016 and 2018, before
              and after the body cameras were introduced. The default view shows the combined
-             allegations for 2016 and 2016. You can view a specfic year using the drop-down
-             menu. Furthermore, you can select which boroughs you would like to look at by
+             allegations for 2016 and 2016. You can view a specfic year by clicking on the buttons
+             below. Furthermore, you can select which boroughs you would like to look at by
              using the multi-select option on the upper-right corner of the map."),
       p(),
-      p("Each circle marker represents a precinct. You can click on these marker to 
+      p("Each circle marker represents a precinct. You can hover on these markers to 
         view the precinct name, address, and the number of allegations.
         The size of the marks reflects the number of allegations."),
       fluidRow(
         column(
           3,
-          selectInput("select_year_leaflet",
+          radioButtons("select_year_leaflet",
             label = "Select Year",
             choices = list(
               "2016 and 2018 Combined", 2016,
               2018
             )
           ),
-          h4("Limitations"),
-          p("The allegations that were counted in the making of this map were only of the officers at
-        command in a precinct or a detective squad due to limited information about the
-        physical location of other command stations."),
         ),
         column(
           9,
@@ -159,7 +156,11 @@ ui <- fluidPage(
           )
         ),
         column(9, htmlOutput("table_precinct"))
-      )
+      ),
+      h3("Limitation"),
+      p("Due to limited information about the physical location of command stations other than 
+      precincts or detective squads, a subset of the original data is used in the making of the 
+        map and table on this page."),
     ),
     tabPanel(
       "Race/Gender Demographics",

@@ -38,7 +38,7 @@ leaflet_all <- map_data %>%
     color = boroughCol(map_data$borough),
     group = map_data$borough,
     fillOpacity = 0.8,
-    popup = popup
+    label = lapply(popup, htmltools::HTML)
   ) %>%
   addLayersControl(
     overlayGroups = map_data$borough,
@@ -66,7 +66,7 @@ leaflet_2016 <- map_data_2016 %>%
     color = boroughCol(map_data_2016$borough),
     group = map_data_2016$borough,
     fillOpacity = 0.8,
-    popup = popup_2016
+    label = lapply(popup_2016, htmltools::HTML)
   ) %>%
   addLayersControl(
     overlayGroups = map_data_2016$borough,
@@ -94,7 +94,7 @@ leaflet_2018 <- map_data_2018 %>%
     color = boroughCol(map_data_2018$borough),
     group = map_data_2018$borough,
     fillOpacity = 0.8,
-    popup = popup_2018
+    label = lapply(popup_2018, htmltools::HTML)
   ) %>%
   addLayersControl(
     overlayGroups = map_data_2018$borough,
