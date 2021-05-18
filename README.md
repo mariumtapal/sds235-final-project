@@ -5,10 +5,10 @@
 
 ## A Shiny App exploring NYC Civilian Complaints about the NYPD
 
-Our app is deployed on shinyapps.io at this link
-<add link after deploying>. You could also run it by cloning this
-repository locally and running the `app.R` script from the `dashboard`
-folder!
+Our app is deployed on shinyapps.io at this
+[link](https://marium.shinyapps.io/sds235-final-project/). You could
+also run it by cloning this repository locally and running the `app.R`
+script!
 
 ### Components of this repository
 
