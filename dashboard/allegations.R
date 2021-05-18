@@ -1,12 +1,6 @@
 ##in progress 
 ##add data wrangle feature
 
-allegations <- read_csv(here("data", "allegations.csv")) 
-allegations_2019 <- allegations %>%  filter(year_received == 2019)
-allegations_2016 <- allegations %>%  filter(year_received == 2016)
-allegations_2018 <- allegations %>%  filter(year_received == 2018)
-
-
 
 #barplot of rank of officers 2016
 mos_officers_2016 <- allegations_2016 %>%
@@ -77,57 +71,6 @@ mos_allegations_2018 <- allegations_2018 %>%
   layout(title = "Types of Allegations in 2018",
          xaxis = list(title = 'Types of Allegations'),
          yaxis = list(title = 'Number of Allegations'))
-
-
-
-#barplot of types of pursued allegations
-mos_pursued_2016 <- allegations_2016 %>%
-  mutate(name = paste(first_name, last_name)) %>% 
-  distinct(name, .keep_all = TRUE) %>% 
-  group_by(board_disposition) %>% 
-  count() %>% 
-  mutate(percent = paste(round(n/744*100, digits = 2),'%', sep = "")) %>% 
-  plot_ly(x = ~board_disposition,
-          y = ~n,
-          type = 'bar',
-          text = ~percent,
-          textposition = 'auto') %>% 
-  layout(title = "Types of Pursued (or Not) Allegations in 2016",
-         xaxis = list(title = 'Types of Allegations'),
-         yaxis = list(title = 'Number of Allegations'))
-
-
-
-#barplot of types of pursued allegations
-mos_pursued_2018 <- allegations_2018 %>%
-  mutate(name = paste(first_name, last_name)) %>% 
-  distinct(name, .keep_all = TRUE) %>% 
-  group_by(board_disposition) %>% 
-  count() %>% 
-  mutate(percent = paste(round(n/744*100, digits = 2),'%', sep = "")) %>% 
-  plot_ly(x = ~board_disposition,
-          y = ~n,
-          type = 'bar',
-          text = ~percent,
-          textposition = 'auto') %>% 
-  layout(title = "Types of Pursued (or Not) Allegations in 2018",
-         xaxis = list(title = 'Types of Allegations'),
-         yaxis = list(title = 'Number of Allegations'))
-
-
-
-
-
-complaintresult <- allegations_2019 %>%
-  plot_ly(x = ~fado_type,
-          y = ~board_disposition,
-          color = ~board_disposition,
-          type = 'bar') %>% 
-  layout(title = "Complaint Results in 2019",
-         xaxis = list(title = "Type of Complaint"))
-
-
-
 
 complaintresult2 <- allegations_2016 %>%
   group_by(fado_type, board_disposition) %>% 

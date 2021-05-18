@@ -108,7 +108,15 @@ ui <- fluidPage(
                                label = "Select Year",
                                choices = list(2016, 2018))
              ),
-             column(9, plotlyOutput("year_allegation_o1")))
+             column(9, plotlyOutput("year_allegation_o1"))),
+             h3("Types of Ranks"),
+             p("Eleni's explanation"),
+             fluidRow(column(
+               3, radioButtons("year_allegation_i2",
+                               label = "Select Year",
+                               choices = list(2016, 2018))
+             ),
+             column(9, plotlyOutput("year_allegation_o2")))
              ),
     tabPanel(
       "NYC Precincts",
@@ -363,6 +371,17 @@ server <- function(input, output) {
     }
     else if (input$year_allegation_i1 == 2018) {
       off <- mos_allegations_2018
+    }
+    off
+  })
+  
+  output$year_allegation_o2 <- renderPlotly({
+    off <- mos_officers_2016
+    if (input$year_allegation_i2 == 2016) {
+      off <- mos_officers_2016
+    }
+    else if (input$year_allegation_i2 == 2018) {
+      off <- mos_officers_2018
     }
     off
   })
