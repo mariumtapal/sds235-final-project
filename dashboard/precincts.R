@@ -1,18 +1,10 @@
-# google sheet of data manually made using:
-# 1. https://www.gpsvisualizer.com/geocoder/
-# 2. Data Description from Allegations Data
-# 3. https://www1.nyc.gov/site/nypd/bureaus/patrol/precincts-landing.page
-
-coordinates <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQ8xw99f6gzPHNvINFt5THA4NrungmyCxGhKAUiRF57q7o1anelmhcgFu-1Dkm3wwqYv3kLi4hSF7Wl/pub?output=csv")
-allegations <- read_csv(here("data", "allegations.csv"))
-
 # subset allegations for officers at command in precincts and detective squads
 allegations_pct_det <- allegations %>%
   filter(stringr::str_ends(command_now, "PCT") == TRUE | stringr::str_ends(command_now, "DET") == TRUE) %>%
   filter(year_received %in% c(2016, 2018))
 
 # 2016 and 2018 combined -------------------
-# trim whitespaces
+# trim whitespace
 allegations_pct_det$command_now <- str_trim(allegations_pct_det$command_now, side = "both")
 coordinates$command_now <- str_trim(coordinates$command_now, side = "both")
 # join coordinate data with allegation data
