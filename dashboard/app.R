@@ -162,10 +162,10 @@ ui <- fluidPage(
       h3("Final Note about the allegations"),
       p("Overall, it is important to note that despite the extent of exploration we can do with this data set,
         it is vital to remember that there are many civilians who never report their complaints, and the ones 
-        who do, may not be at the privilege to fully express what has occured to them due to fear and intimidation.
+        who do, may not be at the privilege to fully express what has occured to them due to fear and/or intimidation.
         At the moment and based on this data set, we can simply explore what is available to us by looking at what
-        types of complaints get pursued and how many, the types of allegations there are and how often certain members
-        of service are reported.")
+        types of complaints get pursued, how many get pursued, the types of allegations there are and 
+        how often certain members of service are reported by civilians.")
     ),
     tabPanel(
       "NYC Precincts",
