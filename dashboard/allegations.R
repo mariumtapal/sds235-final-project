@@ -72,6 +72,8 @@ mos_allegations_2018 <- allegations_2018 %>%
          xaxis = list(title = 'Types of Allegations'),
          yaxis = list(title = 'Number of Allegations'))
 
+
+#Distribution of Complaints 2016
 complaintresult2 <- allegations_2016 %>%
   group_by(fado_type, board_disposition) %>% 
   count() %>% 
@@ -83,11 +85,27 @@ complaintresult2 <- allegations_2016 %>%
           color = ~board_disposition,
           colors = brewer.pal(8, "Paired")
   ) %>% 
-  layout(title = "Distribution of Complaints by whether they are pursued or not",
+  layout(title = "Distribution of Complaints by whether they are pursued or not for 2016",
          xaxis = list(title = "Type of Complaints"),
          yaxis = list(title = "Number of Complaints"),
          legend = list(title = "Type of Complainant"))
 
+#Distribution of Complaints 2018
+complaintresult3 <- allegations_2018 %>%
+  group_by(fado_type, board_disposition) %>% 
+  count() %>% 
+  plot_ly(x = ~fado_type,
+          y = ~n,
+          type = 'bar',
+          text = ~board_disposition,
+          hovertemplate = 'Status: %{text}<br>Type of Complaint: %{x}<br>%{y}',
+          color = ~board_disposition,
+          colors = brewer.pal(8, "Paired")
+  ) %>% 
+  layout(title = "Distribution of Complaints by whether they are pursued or not for 2018",
+         xaxis = list(title = "Type of Complaints"),
+         yaxis = list(title = "Number of Complaints"),
+         legend = list(title = "Type of Complainant"))
 
 
 
