@@ -1,3 +1,7 @@
+allegations <- read_csv(here("data", "allegations.csv"))
+allegations_2016 <- allegations %>% filter(year_received == 2016)
+allegations_2018 <- allegations %>% filter(year_received == 2018)
+
 # deal with NAs
 allegations_2016 <- allegations_2016 %>%
   replace_na(list(complainant_ethnicity = "Unknown", complainant_gender = "NA", complainant_age_incident = "NA"))

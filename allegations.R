@@ -1,3 +1,7 @@
+allegations <- read_csv(here("data", "allegations.csv"))
+allegations_2016 <- allegations %>% filter(year_received == 2016)
+allegations_2018 <- allegations %>% filter(year_received == 2018)
+
 # barplot of rank of officers 2016
 mos_officers_2016 <- allegations_2016 %>%
   mutate(name = paste(first_name, last_name)) %>%

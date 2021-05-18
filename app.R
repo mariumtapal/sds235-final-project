@@ -10,12 +10,6 @@ library(kableExtra)
 library(htmltools)
 library(reactable)
 
-# load in data
-allegations <- read_csv(here("data", "allegations.csv"))
-allegations_2016 <- allegations %>% filter(year_received == 2016)
-allegations_2018 <- allegations %>% filter(year_received == 2018)
-coordinates <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQ8xw99f6gzPHNvINFt5THA4NrungmyCxGhKAUiRF57q7o1anelmhcgFu-1Dkm3wwqYv3kLi4hSF7Wl/pub?output=csv")
-
 # load in source files
 source("allegations.R")
 source("precincts.R")
