@@ -10,6 +10,12 @@ library(kableExtra)
 library(htmltools)
 library(reactable)
 
+# load in data
+allegations <- read_csv(here("data", "allegations.csv"))
+allegations_2016 <- allegations %>% filter(year_received == 2016)
+allegations_2018 <- allegations %>% filter(year_received == 2018)
+coordinates <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vQ8xw99f6gzPHNvINFt5THA4NrungmyCxGhKAUiRF57q7o1anelmhcgFu-1Dkm3wwqYv3kLi4hSF7Wl/pub?output=csv")
+
 # load in source files
 source("allegations.R")
 source("precincts.R")
@@ -119,11 +125,7 @@ ui <- fluidPage(
         ),
         column(9, plotlyOutput("year_allegation_o1"))
       ),
-<<<<<<< HEAD:dashboard/app.R
       h3("Ranks of Members of Service"),
-=======
-      h3("Ranks of Allegations"),
->>>>>>> 2766891eb71d90ebb315142b15f6817a9b935047:app.R
       p("Here you can filter by year in order to explore the ranks of officers for 2016 and 2018 who have had
          complaints against them by civilians. Over the two years, certain members of service may have changed roles 
          for various reasons, including promotion."),
@@ -445,10 +447,8 @@ server <- function(input, output) {
     }
     off
   })
-
-  output$table <- renderReactable({
-    table
-  })
+  
+  output$table <- renderReactable({table})
 }
 
 # Run the application

@@ -1,7 +1,3 @@
-allegations <- read_csv(here("data", "allegations.csv"))
-allegations_2016 <- allegations %>% filter(year_received == 2016)
-allegations_2018 <- allegations %>% filter(year_received == 2018)
-
 # barplot of rank of officers 2016
 mos_officers_2016 <- allegations_2016 %>%
   mutate(name = paste(first_name, last_name)) %>%
@@ -133,31 +129,21 @@ complaintresult2018 <- allegations_2018 %>%
   )
 
 
-table <- allegations %>%
-  filter(year_received == 2016 | year_received == 2018) %>%
-  group_by(
-    last_name, first_name, year_received,
-    rank_now, mos_ethnicity, mos_gender
-  ) %>%
-  count() %>%
-  arrange(desc(n)) %>%
-  reactable(
-    searchable = TRUE, filterable = TRUE,
-    columns = list(
-      last_name = colDef(name = "Last Name"),
-      first_name = colDef(name = "First Name"),
-      year_received = colDef(name = "Year", align = "left"),
-      rank_now = colDef(name = "Rank"),
-      mos_ethnicity = colDef(name = "Ethnicity"),
-      mos_gender = colDef(name = "Gender"),
-      n = colDef(name = "Number of Complaints", align = "left")
-    ),
-    theme = reactableTheme(
-      borderColor = "#dfe2e5",
-      stripedColor = "#f6f8fa",
-      highlightColor = "#f0f5f9",
-      cellPadding = "8px 12px",
-      style = list(fontFamily = "-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif"),
-      searchInputStyle = list(width = "100%")
-    )
-  )
+table <- allegations %>% filter(year_received == 2016 | year_received == 2018) %>% 
+  group_by(last_name, first_name, year_received, 
+           rank_now, mos_ethnicity, mos_gender) %>% count() %>% arrange(desc(n)) %>% 
+  reactable(searchable = TRUE, filterable = TRUE, 
+            columns = list(last_name = colDef(name = "Last Name"), 
+                           first_name = colDef(name = "First Name"), 
+                           year_received = colDef(name = "Year", align = "left"),
+                           rank_now = colDef(name = "Rank"),
+                           mos_ethnicity = colDef(name = "Ethnicity"),
+                           mos_gender = colDef(name = "Gender"),
+                           n = colDef(name = "Number of Complaints", align = "left")),
+            theme = reactableTheme(
+    borderColor = "#dfe2e5",
+    stripedColor = "#f6f8fa",
+    highlightColor = "#f0f5f9",
+    cellPadding = "8px 12px",
+    style = list(fontFamily = "-apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif"),
+    searchInputStyle = list(width = "100%")))
