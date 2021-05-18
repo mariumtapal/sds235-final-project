@@ -112,7 +112,10 @@ ui <- fluidPage(
         you are able to see their gender, age and ethnicity."),
       reactableOutput("table"),
       h3("Types of Allegations"),
-      p("Here you can filter by"),
+      p("Here you can filter by year in order to explore the types of allegations that are most frequent. 
+        The categories are large as a result of the NYPD generalization of complaints. It is important to note
+        that the severity in each of these categories can vary greatly, from a gun being pointed to severe physical 
+        force and exploitation."),
       fluidRow(
         column(
           3, radioButtons("year_allegation_i1",
@@ -122,7 +125,9 @@ ui <- fluidPage(
         ),
         column(9, plotlyOutput("year_allegation_o1"))
       ),
-      h3("Types of Ranks"),
+      h3("Here you can filter by year in order to explore the ranks of officers for 2016 and 2018 who have had
+         complaints against them by civilians. Over the two years, certain members of service may have changed roles 
+         for various reasons, including promotion."),
       p("Eleni's explanation"),
       fluidRow(
         column(
@@ -133,8 +138,18 @@ ui <- fluidPage(
         ),
         column(9, plotlyOutput("year_allegation_o2"))
       ),
-      h3("Types of Complaints"),
-      p("Eleni's explanation"),
+      h3("Types of Complaints Pursued or Not Pursued"),
+      p("Here you can filter by year in order to explore the types of complaints that are pursued or not at all.It is
+      important to note that:"),
+      tags$ul(
+        tags$li("Substantiated: means the alleged conduct occurred and it violated the rules.  
+                The NYPD can choose to ignore those recommendations. It has discretion over what, 
+                if any, discipline is imposed."),
+        tags$li("Exonerated: means the alleged conduct occurred but did not violate the NYPD’s rules, 
+        which often give officers significant discretion over use of force."),
+        tags$li("Unsubstantiated: means that the CCRB has fully investigated but could not 
+        affirmatively conclude both that the conduct occurred and that it broke the rules."),
+      ),
       fluidRow(
         column(
           3, radioButtons("year_allegation_i3",
@@ -144,8 +159,13 @@ ui <- fluidPage(
         ),
         column(9, plotlyOutput("year_allegation_o3"))
       ),
-      h3("Final Note"),
-      p("add something")
+      h3("Final Note about the allegations"),
+      p("Overall, it is important to note that despite the extent of exploration we can do with this data set,
+        it is vital to remember that there are many civilians who never report their complaints, and the ones 
+        who do, may not be at the privilege to fully express what has occured to them due to fear and intimidation.
+        At the moment and based on this data set, we can simply explore what is available to us by looking at what
+        types of complaints get pursued and how many, the types of allegations there are and how often certain members
+        of service are reported.")
     ),
     tabPanel(
       "NYC Precincts",
