@@ -36,12 +36,12 @@ Our app requires the following R packages which are all available for download f
 - shiny
 - shinythemes
 - leaflet
-- reactable
 - plotly
 - here
 - RColorBrewer
 - kableExtra
 - htmltools
+- reactable
 
 You can run the following code in your console to install all these packages:
 

@@ -2,13 +2,13 @@
 library(shiny)
 library(shinythemes)
 library(leaflet)
-library(reactable)
 library(tidyverse)
 library(plotly)
 library(here)
 library(RColorBrewer)
 library(kableExtra)
 library(htmltools)
+library(reactable)
 
 # load in data
 allegations <- read_csv(here("data", "allegations.csv"))

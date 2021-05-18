@@ -35,12 +35,12 @@ download from CRAN:
 -   shiny
 -   shinythemes
 -   leaflet
--   reactable
 -   plotly
 -   here
 -   RColorBrewer
 -   kableExtra
 -   htmltools
+-   reactable
 
 You can run the following code in your console to install all these
 packages:
