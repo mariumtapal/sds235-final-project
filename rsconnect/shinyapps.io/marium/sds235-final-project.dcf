@@ -5,6 +5,6 @@ account: marium
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 4146472
-bundleId: 4612260
+bundleId: 4612864
 url: https://marium.shinyapps.io/sds235-final-project/
-when: 1621356343.36885
+when: 1621366654.55368
