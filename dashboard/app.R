@@ -103,9 +103,16 @@ ui <- fluidPage(
     tabPanel(
       "Allegations",
       h3("Searchable Allegations Table"),
+      p("An important aspect of better understanding civilian complaints, is to see what they are and who they are against.
+         There may be cases where a member of service is repeatedly reported. There are cases were certain allegations
+         are not even considered by the NYPD. The Allegations tab is here to help you navigate these ideas
+         and aid you in exploring further."),
+      p("Below you can find a searchable table. It depicts the number of allegations 
+        associated with each member of service as well as their rank for 2016 and 2018. In addition,
+        you are able to see their gender, age and ethnicity."),
       reactableOutput("table"),
       h3("Types of Allegations"),
-      p("Eleni's explanation"),
+      p("Here you can filter by"),
       fluidRow(
         column(
           3, radioButtons("year_allegation_i1",
@@ -136,7 +143,9 @@ ui <- fluidPage(
           )
         ),
         column(9, plotlyOutput("year_allegation_o3"))
-      )
+      ),
+      h3("Final Note"),
+      p("add something")
     ),
     tabPanel(
       "NYC Precincts",
