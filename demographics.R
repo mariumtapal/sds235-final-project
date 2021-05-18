@@ -165,7 +165,7 @@ comp_gender_2016 <- allegations_2016 %>%
     textposition = "auto"
   ) %>%
   layout(
-    title = "Gender Breakdown of Complainants in 2016 Allegations",
+    title = "Gender Percentages of 2345 Complainants in 2016 Allegations",
     xaxis = list(title = "Gender of Complainants"),
     yaxis = list(title = "Number of Complaints")
   )
@@ -183,7 +183,7 @@ comp_gender_2018 <- allegations_2018 %>%
     textposition = "auto"
   ) %>%
   layout(
-    title = "Gender Breakdown of Complainants in 2016 Allegations",
+    title = "Gender Percentages of 2281 Complainants in 2018 Allegations",
     xaxis = list(title = "Gender of Complainants"),
     yaxis = list(title = "Number of Complaints")
   )
