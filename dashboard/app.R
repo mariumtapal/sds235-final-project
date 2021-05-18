@@ -100,24 +100,44 @@ ui <- fluidPage(
         allegations."),
       p(),
     ),
-    tabPanel("Allegations",
-             h3("Types of Allegations"),
-             p("Eleni's explanation"),
-             fluidRow(column(
-               3, radioButtons("year_allegation_i1",
-                               label = "Select Year",
-                               choices = list(2016, 2018))
-             ),
-             column(9, plotlyOutput("year_allegation_o1"))),
-             h3("Types of Ranks"),
-             p("Eleni's explanation"),
-             fluidRow(column(
-               3, radioButtons("year_allegation_i2",
-                               label = "Select Year",
-                               choices = list(2016, 2018))
-             ),
-             column(9, plotlyOutput("year_allegation_o2")))
-             ),
+    tabPanel(
+      "Allegations",
+      h3("Searchable Allegations Table"),
+      reactableOutput("table"),
+      h3("Types of Allegations"),
+      p("Eleni's explanation"),
+      fluidRow(
+        column(
+          3, radioButtons("year_allegation_i1",
+            label = "Select Year",
+            choices = list(2016, 2018)
+          )
+        ),
+        column(9, plotlyOutput("year_allegation_o1"))
+      ),
+      h3("Types of Ranks"),
+      p("Eleni's explanation"),
+      fluidRow(
+        column(
+          3, radioButtons("year_allegation_i2",
+            label = "Select Year",
+            choices = list(2016, 2018)
+          )
+        ),
+        column(9, plotlyOutput("year_allegation_o2"))
+      ),
+      h3("Types of Complaints"),
+      p("Eleni's explanation"),
+      fluidRow(
+        column(
+          3, radioButtons("year_allegation_i3",
+            label = "Select Year",
+            choices = list(2016, 2018)
+          )
+        ),
+        column(9, plotlyOutput("year_allegation_o3"))
+      )
+    ),
     tabPanel(
       "NYC Precincts",
       h3("Map: Allegations by Year"),
@@ -357,12 +377,14 @@ server <- function(input, output) {
       group_by(fado_type, allegation, board_disposition) %>%
       count() %>%
       arrange(desc(n)) %>%
-      knitr::kable("html", col.names = c("Top-level Category of Complaint",
-                                         "Specific Category of Complaint",
-                                         "Finding by the CCRB", "Count")) %>%
+      knitr::kable("html", col.names = c(
+        "Top-level Category of Complaint",
+        "Specific Category of Complaint",
+        "Finding by the CCRB", "Count"
+      )) %>%
       kable_styling("striped", full_width = T)
   })
-  
+
   # eleni's plots start here
   output$year_allegation_o1 <- renderPlotly({
     off <- mos_allegations_2016
@@ -374,7 +396,7 @@ server <- function(input, output) {
     }
     off
   })
-  
+
   output$year_allegation_o2 <- renderPlotly({
     off <- mos_officers_2016
     if (input$year_allegation_i2 == 2016) {
@@ -385,6 +407,19 @@ server <- function(input, output) {
     }
     off
   })
+
+  output$year_allegation_o3 <- renderPlotly({
+    off <- complaintresult2016
+    if (input$year_allegation_i3 == 2016) {
+      off <- complaintresult2016
+    }
+    else if (input$year_allegation_i3 == 2018) {
+      off <- complaintresult2018
+    }
+    off
+  })
+  
+  output$table <- renderReactable({table})
 }
 
 # Run the application
