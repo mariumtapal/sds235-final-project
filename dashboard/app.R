@@ -37,7 +37,7 @@ ui <- fluidPage(
   theme = shinytheme("flatly"),
 
   # Application title
-  titlePanel("NYC Civilian Complaints About PD"),
+  titlePanel("Exploring NYC Civilian Complaints about the NYPD"),
 
   # Create tabs
   tabsetPanel(

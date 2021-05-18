@@ -3,7 +3,7 @@
 
 # SDS 235: Visual Analytics - Final Project
 
-## A Shiny App about NYC Civilian Complaints About PD
+## A Shiny App exploring NYC Civilian Complaints about the NYPD
 
 Our app is deployed on shinyapps.io at this link
 <add link after deploying>. You could also run it by cloning this
