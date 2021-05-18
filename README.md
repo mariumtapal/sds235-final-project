@@ -47,10 +47,7 @@ packages:
 
 ``` r
 install.packages(c(
-  "tidyverse", "shiny", "shinythemes",
-  "leaflet", "plotly", "here",
-  "RColorBrewer", "kableExtra",
-  "htmltools", "reactable"
+  "tidyverse", "shiny", "shinythemes", "leaflet", "plotly", "here", "RColorBrewer", "kableExtra", "htmltools", "reactable"
 ))
 ```
 
