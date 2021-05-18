@@ -119,11 +119,7 @@ ui <- fluidPage(
         ),
         column(9, plotlyOutput("year_allegation_o1"))
       ),
-<<<<<<< HEAD:dashboard/app.R
-      h3("Ranks of Members of Service"),
-=======
       h3("Ranks of Allegations"),
->>>>>>> 2766891eb71d90ebb315142b15f6817a9b935047:app.R
       p("Here you can filter by year in order to explore the ranks of officers for 2016 and 2018 who have had
          complaints against them by civilians. Over the two years, certain members of service may have changed roles 
          for various reasons, including promotion."),

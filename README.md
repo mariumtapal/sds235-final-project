@@ -5,20 +5,19 @@
 
 ## A Shiny App exploring NYC Civilian Complaints about the NYPD
 
-Our app is deployed on shinyapps.io at this link
-<add link after deploying>. You could also run it by cloning this
-repository locally and running the `app.R` script from the `dashboard`
-folder!
+Our app is deployed on shinyapps.io at this
+[link](https://marium.shinyapps.io/sds235-final-project/). You could
+also run it by cloning this repository locally and running the `app.R`
+script!
 
 ### Components of this repository
 
 Our project includes the following files/folders:
 
--   the `dashboard` folder includes necessary components of our app:
-    -   `app.R` containing the `server` and `ui` of our app
-    -   the other `.R` files contain components that are sourced into
-        `app.R`
-    -   `footer.hmtl` contains HTML and CSS code for our footer
+-   `app.R` contains the `server` and `ui` of our app
+-   the other `.R` files contain components of our app that are sourced
+    into `app.R`
+-   `footer.hmtl` contains HTML and CSS code for our footer
 -   the `scratchpads` folder contains our data wrangling and
     visualizations before they go into the shiny app
 -   the `data` folder contains the main data for our project. It is
@@ -47,7 +46,10 @@ packages:
 
 ``` r
 install.packages(c(
-  "tidyverse", "shiny", "shinythemes", "leaflet", "plotly", "here", "RColorBrewer", "kableExtra", "htmltools", "reactable"
+  "tidyverse", "shiny", "shinythemes",
+  "leaflet", "plotly", "here",
+  "RColorBrewer", "kableExtra",
+  "htmltools", "reactable"
 ))
 ```
 
