@@ -125,10 +125,10 @@ ui <- fluidPage(
         ),
         column(9, plotlyOutput("year_allegation_o1"))
       ),
-      h3("Here you can filter by year in order to explore the ranks of officers for 2016 and 2018 who have had
+      h3("Ranks of Members of Service"),
+      p("Here you can filter by year in order to explore the ranks of officers for 2016 and 2018 who have had
          complaints against them by civilians. Over the two years, certain members of service may have changed roles 
          for various reasons, including promotion."),
-      p("Eleni's explanation"),
       fluidRow(
         column(
           3, radioButtons("year_allegation_i2",
